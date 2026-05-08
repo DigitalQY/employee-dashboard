@@ -8,13 +8,14 @@
     let dashboard = 'dashboard';
     let table = document.querySelector(`.${dashboard}__table`);
     let percent = document.querySelector(`.${dashboard}__percent`);
-    
+
     let employees = [
       { name: 'employee1', age: 30, salary: 400 },
       { name: 'employee2', age: 31, salary: 500 },
       { name: 'employee3', age: 32, salary: 600 },
     ];
 
+    console.log(percent);
 
     for (let item of employees) {
       let creater = (text) => {
@@ -23,16 +24,24 @@
         td.dataset.flag = true;
         return td;
       };
+      function check(num = 10) {
+        if (Number(num)) {
+          return num;
+        } else {
+          return 10
+        }
+      };
 
       let event = (elem) => {
         elem.addEventListener('click', () => {
           if (Number(elem.textContent) && elem.dataset.flag == 'true') {
-            elem.textContent = (elem.textContent * 10 / 100) + Number(elem.textContent);
+            elem.textContent = (elem.textContent * check(percent.value) / 100) + Number(elem.textContent);
           }
           elem.dataset.flag = false;
         })
       };
-      
+
+
       let tr = document.createElement('tr');
       table.appendChild(tr);
 
@@ -47,7 +56,8 @@
       let td3 = creater(item.salary);
       tr.appendChild(td3);
       event(td3)
-    }
+    };
+
   }());
 
 
